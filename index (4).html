@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joanna Esquivel Jaimes — Ingeniería en Energías Renovables</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --plum: #3b0764;
+      --violet: #6d28d9;
+      --lavender: #a78bfa;
+      --lilac: #c4b5fd;
+      --mist: #ede9fe;
+      --cream: #faf5ff;
+      --white: #ffffff;
+      --text-dark: #1e1b4b;
+      --text-mid: #4c1d95;
+      --accent: #7c3aed;
+      --glow: rgba(167, 139, 250, 0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--plum) 0%, #4c1d95 40%, #5b21b6 70%, #6d28d9 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 8vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative rings */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,181,253,0.15);
+      top: -200px; right: -150px;
+      animation: spin 40s linear infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 450px; height: 450px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,181,253,0.1);
+      bottom: -100px; right: 80px;
+      animation: spin 28s linear infinite reverse;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-text { position: relative; z-index: 2; }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--lavender);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+
+    .hero-name span {
+      color: var(--lavender);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--lilac);
+      margin-top: 1.2rem;
+      max-width: 380px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      border: 1px solid var(--lavender);
+      color: var(--lavender);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s forwards;
+    }
+    .hero-cta:hover {
+      background: var(--lavender);
+      color: var(--plum);
+    }
+
+    /* Hero right — floating data card */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeIn 1.2s 0.5s forwards;
+    }
+
+    .data-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(196,181,253,0.2);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      width: 320px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .data-card-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--lavender);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .data-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(196,181,253,0.1);
+    }
+    .data-item:last-child { border-bottom: none; }
+
+    .data-icon {
+      width: 36px; height: 36px;
+      background: rgba(109,40,217,0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .data-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--lavender);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .data-value {
+      font-size: 0.85rem;
+      color: var(--white);
+      font-weight: 300;
+      margin-top: 0.2rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      mix-blend-mode: normal;
+      background: rgba(59,7,100,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196,181,253,0.1);
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--lavender);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--lilac);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 7rem 8vw;
+    }
+
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--violet);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--plum);
+      line-height: 1.15;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #sobre-mi {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: #4c4573;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .about-highlight {
+      display: inline;
+      background: linear-gradient(transparent 60%, var(--mist) 60%);
+      font-weight: 600;
+      color: var(--plum);
+    }
+
+    /* Orbit graphic */
+    .orbit-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .orbit-svg { width: 100%; max-width: 340px; }
+
+    /* ── INTERESES ── */
+    #intereses {
+      background: linear-gradient(160deg, var(--mist) 0%, #f5f0ff 100%);
+    }
+
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .interest-card {
+      background: var(--white);
+      border: 1px solid rgba(109,40,217,0.12);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s, box-shadow 0.35s;
+    }
+
+    .interest-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--violet), var(--lavender));
+      border-radius: 12px 0 0 12px;
+    }
+
+    .interest-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(109,40,217,0.12);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--plum);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: #6b5fa0;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── FORMACIÓN ── */
+    #formacion {
+      background: var(--white);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--violet), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideIn 0.7s forwards;
+    }
+
+    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+    .timeline-item:nth-child(2) { animation-delay: 0.25s; }
+    .timeline-item:nth-child(3) { animation-delay: 0.4s; }
+
+    .timeline-dot {
+      position: absolute;
+      left: -3.4rem;
+      top: 0.3rem;
+      width: 12px; height: 12px;
+      background: var(--violet);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--mist);
+    }
+
+    .timeline-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--lavender);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--plum);
+      font-weight: 700;
+    }
+
+    .timeline-place {
+      font-size: 0.875rem;
+      color: #7c6fab;
+      margin-top: 0.25rem;
+      font-weight: 400;
+    }
+
+    /* ── HABILIDADES ── */
+    #habilidades {
+      background: linear-gradient(135deg, var(--plum) 0%, #4c1d95 100%);
+    }
+
+    #habilidades .section-tag { color: var(--lavender); }
+    #habilidades .section-title { color: var(--white); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .skill-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(196,181,253,0.2);
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: background 0.3s;
+    }
+    .skill-pill:hover { background: rgba(255,255,255,0.12); }
+
+    .skill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--lavender);
+      flex-shrink: 0;
+    }
+
+    .skill-name {
+      font-size: 0.875rem;
+      color: var(--white);
+      font-weight: 300;
+    }
+
+    /* ── EXPERIENCIA ── */
+    #experiencia {
+      background: var(--cream);
+    }
+
+    .exp-card {
+      background: var(--white);
+      border: 1px solid rgba(109,40,217,0.1);
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 700px;
+      position: relative;
+    }
+
+    .exp-card::after {
+      content: '';
+      position: absolute;
+      top: -1px; left: 2rem; right: 2rem;
+      height: 3px;
+      background: linear-gradient(to right, var(--violet), var(--lavender));
+      border-radius: 0 0 3px 3px;
+    }
+
+    .exp-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--plum);
+    }
+
+    .exp-company {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--lavender);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    .exp-desc {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #6b5fa0;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ── CONTACTO ── */
+    #contacto {
+      background: var(--plum);
+      text-align: center;
+      padding: 6rem 8vw;
+    }
+
+    #contacto .section-tag { color: var(--lavender); }
+    #contacto .section-title { color: var(--white); margin-bottom: 1rem; }
+
+    .contact-sub {
+      color: var(--lilac);
+      font-weight: 300;
+      margin-bottom: 3rem;
+      font-size: 1rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: var(--lavender);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: 1px solid rgba(196,181,253,0.3);
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .contact-link:hover {
+      background: var(--lavender);
+      color: var(--plum);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1e0a3c;
+      text-align: center;
+      padding: 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: rgba(196,181,253,0.4);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; padding-top: 8rem; padding-bottom: 4rem; gap: 3rem; }
+      .hero-visual { display: none; }
+      #sobre-mi { grid-template-columns: 1fr; gap: 2rem; }
+      .orbit-wrapper { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">JEJ</div>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#intereses">Intereses</a></li>
+      <li><a href="#formacion">Formación</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-tag">// Ingeniería · Energías Renovables · Innovación</p>
+      <h1 class="hero-name">
+        Joanna<span>Esquivel Jaimes</span>
+      </h1>
+      <p class="hero-subtitle">
+        Estudiante de ingeniería apasionada por la energía geotérmica, sistemas hidroeléctricos y biodigestores. Construyendo un futuro más sostenible desde Baja California Sur.
+      </p>
+      <a href="#contacto" class="hero-cta">
+        <span>⬡</span> Conectemos
+      </a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="data-card">
+        <p class="data-card-title">// perfil.json</p>
+        <div class="data-item">
+          <div class="data-icon">🎓</div>
+          <div>
+            <div class="data-label">Carrera</div>
+            <div class="data-value">Ing. Fuentes de Energías Renovables</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">🏛️</div>
+          <div>
+            <div class="data-label">Universidad</div>
+            <div class="data-value">UABCS — Baja California Sur</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">⚡</div>
+          <div>
+            <div class="data-label">Especialización</div>
+            <div class="data-value">Geotérmica · Hidráulica · Biogas</div>
+          </div>
+        </div>
+        <div class="data-item">
+          <div class="data-icon">📍</div>
+          <div>
+            <div class="data-label">Ubicación</div>
+            <div class="data-value">La Paz, B.C.S., México</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <div class="about-text">
+      <p class="section-tag">// 01 — Sobre mí</p>
+      <h2 class="section-title">Energía con propósito</h2>
+      <p>
+        Soy estudiante de <span class="about-highlight">Ingeniería en Fuentes de Energías Renovables</span> en la Universidad Autónoma de Baja California Sur. Mi formación me ha llevado a explorar las intersecciones entre la tecnología, la naturaleza y la ingeniería aplicada.
+      </p>
+      <p>
+        Me apasiona entender los sistemas desde adentro: desde las tuberías y maquinaria hasta los <span class="about-highlight">procesos químicos detrás de los biodigestores</span>. Creo que la innovación verdadera está en comprender profundamente los fenómenos naturales y adaptarlos con ingenio.
+      </p>
+      <p>
+        Cuento también con experiencia en contabilidad administrativa en comercios, lo que me ha dado una visión integral para gestionar recursos y proyectos con eficiencia.
+      </p>
+    </div>
+
+    <div class="orbit-wrapper">
+      <!-- Animated SVG Orbit Diagram -->
+      <svg class="orbit-svg" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#6d28d9" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#3b0764" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Background glow -->
+        <circle cx="170" cy="170" r="120" fill="url(#cg)" />
+
+        <!-- Orbit rings -->
+        <circle cx="170" cy="170" r="110" fill="none" stroke="#c4b5fd" stroke-width="0.5" stroke-dasharray="4 6" opacity="0.4">
+          <animateTransform attributeName="transform" type="rotate" from="0 170 170" to="360 170 170" dur="30s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="170" cy="170" r="75" fill="none" stroke="#a78bfa" stroke-width="0.5" stroke-dasharray="3 5" opacity="0.3">
+          <animateTransform attributeName="transform" type="rotate" from="0 170 170" to="-360 170 170" dur="22s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Center core -->
+        <circle cx="170" cy="170" r="38" fill="#3b0764" stroke="#7c3aed" stroke-width="1.5"/>
+        <text x="170" y="165" text-anchor="middle" font-family="'DM Mono'" font-size="9" fill="#c4b5fd" letter-spacing="1">ENERGÍA</text>
+        <text x="170" y="178" text-anchor="middle" font-family="'DM Mono'" font-size="9" fill="#c4b5fd" letter-spacing="1">RENOVABLE</text>
+
+        <!-- Orbit 1 nodes — outer -->
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="0 170 170" to="360 170 170" dur="30s" repeatCount="indefinite"/>
+          <circle cx="280" cy="170" r="22" fill="#4c1d95" stroke="#a78bfa" stroke-width="1"/>
+          <text x="280" y="167" text-anchor="middle" font-family="'DM Mono'" font-size="7.5" fill="#e9d5ff">⚙️</text>
+          <text x="280" y="179" text-anchor="middle" font-family="'DM Mono'" font-size="6.5" fill="#c4b5fd">Maquinaria</text>
+        </g>
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="120 170 170" to="480 170 170" dur="30s" repeatCount="indefinite"/>
+          <circle cx="280" cy="170" r="22" fill="#4c1d95" stroke="#a78bfa" stroke-width="1"/>
+          <text x="280" y="167" text-anchor="middle" font-family="'DM Mono'" font-size="7.5" fill="#e9d5ff">🌊</text>
+          <text x="280" y="179" text-anchor="middle" font-family="'DM Mono'" font-size="6.5" fill="#c4b5fd">Hidráulica</text>
+        </g>
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="240 170 170" to="600 170 170" dur="30s" repeatCount="indefinite"/>
+          <circle cx="280" cy="170" r="22" fill="#4c1d95" stroke="#a78bfa" stroke-width="1"/>
+          <text x="280" y="167" text-anchor="middle" font-family="'DM Mono'" font-size="7.5" fill="#e9d5ff">🌋</text>
+          <text x="280" y="179" text-anchor="middle" font-family="'DM Mono'" font-size="6.5" fill="#c4b5fd">Geotérmica</text>
+        </g>
+
+        <!-- Orbit 2 nodes — inner -->
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="60 170 170" to="-300 170 170" dur="22s" repeatCount="indefinite"/>
+          <circle cx="245" cy="170" r="16" fill="#5b21b6" stroke="#c4b5fd" stroke-width="0.8"/>
+          <text x="245" y="173" text-anchor="middle" font-family="'DM Mono'" font-size="7" fill="#e9d5ff">🧬</text>
+        </g>
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="240 170 170" to="-120 170 170" dur="22s" repeatCount="indefinite"/>
+          <circle cx="245" cy="170" r="16" fill="#5b21b6" stroke="#c4b5fd" stroke-width="0.8"/>
+          <text x="245" y="173" text-anchor="middle" font-family="'DM Mono'" font-size="7" fill="#e9d5ff">🔬</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- INTERESES -->
+  <section id="intereses">
+    <p class="section-tag">// 02 — Áreas de interés</p>
+    <h2 class="section-title">Lo que me mueve</h2>
+    <div class="interests-grid">
+
+      <div class="interest-card">
+        <div class="card-icon">🌋</div>
+        <div class="card-title">Sistemas Geotérmicos</div>
+        <p class="card-desc">Aprovechamiento del calor interno de la Tierra para generar energía limpia y estable. Me fascina la interfaz entre geología e ingeniería.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="card-icon">🌊</div>
+        <div class="card-title">Energía Hidroeléctrica</div>
+        <p class="card-desc">Diseño y operación de sistemas que convierten el potencial del agua en electricidad. Desde pequeñas turbinas hasta grandes infraestructuras.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">Innovación y Reparación</div>
+        <p class="card-desc">Diagnóstico, mantenimiento y mejora de maquinaria, tuberías y sistemas mecánicos. Creo en extender la vida útil de los equipos con ingenio.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="card-icon">🧬</div>
+        <div class="card-title">Biodigestores y Química Biológica</div>
+        <p class="card-desc">Estudio de los procesos anaeróbicos y la química detrás de la producción de biogás a partir de residuos orgánicos. Ciencia aplicada al ciclo natural.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FORMACIÓN -->
+  <section id="formacion">
+    <p class="section-tag">// 03 — Formación académica</p>
+    <h2 class="section-title">Mi trayectoria</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">En curso</div>
+        <div class="timeline-title">Ingeniería en Fuentes de Energías Renovables</div>
+        <div class="timeline-place">Universidad Autónoma de Baja California Sur (UABCS) · La Paz, B.C.S.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Formación Complementaria</div>
+        <div class="timeline-title">Administración Contable</div>
+        <div class="timeline-place">Experiencia práctica en contabilidad y gestión de recursos en el sector comercial</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades">
+    <p class="section-tag">// 04 — Habilidades</p>
+    <h2 class="section-title">Competencias técnicas</h2>
+    <div class="skills-grid">
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Análisis de sistemas energéticos</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Geotermia aplicada</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Sistemas hidroeléctricos</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Biodigestores y biogás</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Mant. de maquinaria y tuberías</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Química de procesos biológicos</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Contabilidad administrativa</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Gestión de recursos</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Resolución de problemas técnicos</span></div>
+      <div class="skill-pill"><div class="skill-dot"></div><span class="skill-name">Innovación aplicada</span></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section id="experiencia">
+    <p class="section-tag">// 05 — Experiencia profesional</p>
+    <h2 class="section-title">Recorrido laboral</h2>
+    <div class="exp-card">
+      <div class="exp-role">Contadora Administrativa</div>
+      <div class="exp-company">// Sector Comercial · Tiendas</div>
+      <p class="exp-desc">
+        Manejo de registros contables, control de inventarios y gestión de recursos financieros en establecimientos comerciales. Esta experiencia me dotó de disciplina analítica y capacidad de organización que aplico en mis proyectos de ingeniería.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <p class="section-tag">// 06 — Contacto</p>
+    <h2 class="section-title">¿Hablamos?</h2>
+    <p class="contact-sub">Abierta a colaboraciones, proyectos académicos y oportunidades en energías renovables.</p>
+    <a href="mailto:jesquivel_25@alu.uabcs.mx" class="contact-link">
+      <span>✉</span> jesquivel_25@alu.uabcs.mx
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Joanna Esquivel Jaimes · Ingeniería en Energías Renovables · UABCS
+  </footer>
+
+</body>
+</html>
